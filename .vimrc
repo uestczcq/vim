@@ -719,6 +719,31 @@ imap <leader>v <ESC>"+p
 nmap <leader>v "+p
 vmap <leader>v "+p
 
+" \16                 十六进制格式查看
+nmap <leader>16 <ESC>:%!xxd<ESC>
+
+" \r16                返回普通格式
+nmap <leader>r16 <ESC>:%!xxd -r<ESC>
+
+" \rt                 一键替换全部Tab为空格
+func! RemoveTabs()
+    if &shiftwidth == 2
+        exec "%s/	/  /g"
+    elseif &shiftwidth == 4
+        exec "%s/	/    /g"
+    elseif &shiftwidth == 6
+        exec "%s/	/      /g"
+    elseif &shiftwidth == 8
+        exec "%s/	/        /g"
+    else
+        exec "%s/	/ /g"
+    end
+endfunc
+
+imap <leader>rt <ESC>:call RemoveTabs()<CR>
+nmap <leader>rt :call RemoveTabs()<CR>
+vmap <leader>rt <ESC>:call RemoveTabs()<CR>
+
 " \s 一键保存
 func! SaveFile()
     exec "w"
@@ -736,7 +761,7 @@ set sessionoptions="blank,globals,localoptions,tabpages,sesdir,folds,help,option
 map <leader>ss :mksession! $VIMFILES/.last_session.vim<cr> :wviminfo! $VIMFILES/.project.viminfo<cr>	" 保存快捷键
 map <leader>rs :source $VIMFILES/.last_session.vim<cr> :rviminfo $VIMFILES/.project.viminfo<cr>	" 恢复快捷键
 
-set undofile	" 重启后撤销历史可用 persistent undo 
+set undofile	" 重启后撤销历史可用 persistent undo
 set undodir=$VIMFILES/\_undodir
 set undolevels=1000 "maximum number of changes that can be undone
 set undoreload=10000 "maximum number lines to save for undo on a buffer reload
