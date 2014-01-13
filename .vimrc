@@ -702,6 +702,12 @@ imap <m-k> <Up>
 " Alt  + L            光标右移一格
 imap <m-l> <Right>
 
+"Smart way to move between windows 分屏窗口移动
+map <C-j> <C-W>j
+map <C-k> <C-W>k
+map <C-h> <C-W>h
+map <C-l> <C-W>l
+
 " \c                  复制至公共剪贴板
 vmap <leader>c "+y
 
