@@ -538,6 +538,8 @@ let g:ycm_complete_in_comments = 1
 let g:ycm_complete_in_strings = 1
 "注释和字符串中的文字也会被收入补全
 let g:ycm_collect_identifiers_from_comments_and_strings = 0
+
+nnoremap <leader>jd :YcmCompleter GoToDefinitionElseDeclaration<CR> " 跳转到定义处
 "--------------------------------------
 "Bundle 'clang-complete'
 "let g:clang_complete_copen=1
