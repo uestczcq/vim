@@ -33,7 +33,7 @@
 " \ig 			     --打开/关闭 vim-indent-guides,可视化代码缩进
 " \space		     --去掉末尾空格
 " \ig                        --显示/关闭对齐线
-" \\+f/w/l/e		     --easymotion,快速高效移动光标
+" \\+f/w/j/k/e		     --easymotion,快速高效移动光标
 " \bb                        --按=号对齐代码
 " \bn                        --自定义对齐
 " \td			     --快速打开TODO列表
@@ -101,6 +101,8 @@
 " [ Ctrl+I                   --跳至当前光标所在变量的首次出现位置 [从文件头部开始]
 " [ D                        --列出当前光标所在变量的所有定义位置 [从文件头部开始]
 " [ I                        --列出当前光标所在变量的所有出现位置 [从文件头部开始]
+"
+" \gd                        --跳转到当前光标所在变量的定义处(YCM)
 "
 " ---------- 行号显示 ----------
 " 普通模式默认为相对行号，插入模式默认为绝对行号
@@ -497,7 +499,7 @@ let g:solarized_visibility="normal"
 Bundle 'tomasr/molokai'
 let g:molokai_original = 1
 " ------------------------------- 高效移动 --------------------------------
-"更高效的移动 // + w/f/l
+"更高效的移动 // + w/f/j/k
 Bundle 'Lokaltog/vim-easymotion'
 " 在()、""、甚至HTML标签之间快速跳转，快捷键默认为%
 Bundle 'vim-scripts/matchit.zip'
@@ -648,6 +650,7 @@ let g:vimwiki_valid_html_tags = 'a,img,b,i,s,u,sub,sup,br,hr,div,del,code,red,ce
 " zcq
 " 对中文用户来说，我们并不怎么需要驼峰英文成为维基词条
 let g:vimwiki_camel_case = 0
+let g:vimwiki_list_ignore_newline = 0
 
 let blog = {}
 if g:isWIN
