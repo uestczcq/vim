@@ -561,7 +561,11 @@ let g:UltiSnipsExpandTrigger = "<tab>"
 let g:UltiSnipsJumpForwardTrigger = "<tab>"
 let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 "定义存放代码片段的文件夹 .vim/snippets下，使用自定义和默认的，将会的到全局，有冲突的会提示
-let g:UltiSnipsSnippetDirectories=["snippets", "bundle/ultisnips/UltiSnips"]
+" let g:UltiSnipsSnippetDirectories=["snippets", "bundle/ultisnips/UltiSnips"]
+let g:UltiSnipsEditSplit="vertical"
+" ------------------------------ vim-snippes --------------------------------
+Bundle 'honza/vim-snippets'
+" ActivateAddons vim-snippets snipmate
 " ------------------------------- nerdcommenter --------------------------------
 "快速 加减注释
 Bundle 'scrooloose/nerdcommenter'
