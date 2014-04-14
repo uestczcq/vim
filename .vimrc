@@ -12,6 +12,10 @@
 " Alt  + K                   --光标上移一格           [插入模式]
 " Alt  + L                   --光标右移一格           [插入模式]
 
+" ---------- F<>按键系列 -----------
+" F5                        -- 一键编译
+" F6                        -- 一键运行
+
 " ---------- Leader系按键 ----------
 "
 " \c[小写]                   --复制至公共剪贴板       [仅选择模式]
@@ -42,6 +46,7 @@
 " \mb			     --隐藏/显示MiniBufExplorer
 " \ss			     --保存环境
 " \rs			     --恢复环境
+" \s                 -- 一键保存文件
 " \th                        --一键生成与当前编辑文件同名的HTML文件 [不输出行号]
 " \ev                        --编辑当前所使用的Vim配置文件
 "
@@ -267,8 +272,65 @@ if g:isWIN
 else
     "set tags += tags,../tags
 endif
+" -------------------------------一键编译运行-----------------------------
+func! CompileGcc()
+    exec "w"
+    let compilecmd="!gcc "
+    let compileflag="-o %< "    " %为内部变量，表示文件名，而%<表示没有后缀的文件名
+    if search("mpi/.h") != 0
+        let compilecmd = "!mpicc "
+    endif
+    if search("math/.h") != 0
+        let compileflag .= " -lm "
+    endif
+    exec compilecmd." % ".compileflag
+endfunc
+func! CompileGpp()
+    exec "w"
+    let compilecmd="!g++ "
+    let compileflag="-o %< "
+    if search("mpi/.h") != 0
+        let compilecmd = "!mpic++ "
+    endif
+    if search("math/.h") != 0
+        let compileflag .= " -lm "
+    endif
+    exec compilecmd." % ".compileflag
+endfunc
 
+func! CompileCode()
+        exec "w"
+        if &filetype == "cpp"       " 前缀&起标识内部变量的作用
+                exec "call CompileGpp()"
+        elseif &filetype == "c"
+                exec "call CompileGcc()"
+        elseif &filetype == "python"
+                exec "!python %"
+        elseif &filetype == "sh"
+                exec "!sh %"
+        endif
+endfunc
 
+func! RunResult()
+        exec "w"
+        if &filetype == "cpp"
+            exec "! ./%<"
+        elseif &filetype == "c"
+            exec "! ./%<"
+        elseif &filetype == "python"
+            exec "!chmod +x %"
+            exec "! ./%"
+        elseif &filetype == "sh"
+            exec "!chmod +x %"
+            exec "! ./%"
+        endif
+endfunc
+
+map <F5> :call CompileCode()<CR>
+imap <F5> <ESC>:call CompileCode()<CR>
+vmap <F5> <ESC>:call CompileCode()<CR>
+
+map <F6> :call RunResult()<CR>
 " -------------------------------------------------------------
 " 设置通用缩进策略
 set shiftwidth=4
@@ -530,7 +592,7 @@ let g:ycm_min_num_of_chars_for_completion=2	" 从第2个键入字符就开始罗
 let g:ycm_cache_omnifunc=0	" 禁止缓存匹配项,每次都重新生成匹配项
 let g:ycm_seed_identifiers_with_syntax=1	" 语法关键字补全
 "nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>	"force recomile with syntastic
-nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>	"force recomile with syntastic
+" nnoremap <F5> :YcmForceCompileAndDiagnostics<CR>	"force recomile with syntastic
 "nnoremap <leader>lo :lopen<CR>	"open locationlist
 "nnoremap <leader>lc :lclose<CR>	"close locationlist
 inoremap <leader><leader> <C-x><C-o>
