@@ -276,14 +276,15 @@ endif
 func! CompileGcc()
     exec "w"
     let compilecmd="!gcc "
-    let compileflag="-o %< "    " %为内部变量，表示文件名，而%<表示没有后缀的文件名
+    let compiletarget="-o %<"   " %为内部变量，表示文件名，而%<表示没有后缀的文件名
+    let compileflag="-Wall -O -g"
     if search("mpi/.h") != 0
         let compilecmd = "!mpicc "
     endif
     if search("math/.h") != 0
         let compileflag .= " -lm "
     endif
-    exec compilecmd." % ".compileflag
+    exec compilecmd.compileflag." % ".compiletarget
 endfunc
 func! CompileGpp()
     exec "w"
