@@ -284,7 +284,7 @@ func! CompileGcc()
     if search("math/.h") != 0
         let compileflag .= " -lm "
     endif
-    exec compilecmd.compileflag." % ".compiletarget
+    exec compilecmd.compiletarget.compileflag." % "
 endfunc
 func! CompileGpp()
     exec "w"
